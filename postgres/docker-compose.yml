@@ -1,0 +1,13 @@
+services:
+  db:
+    image: postgres:16.2
+    container_name: postgres_local
+    # set shared memory limit when using docker-compose
+    shm_size: 256mb
+    environment:
+      POSTGRES_PASSWORD: example
+    ports:
+      - 5051:5432
+    volumes:
+      - ./data:/var/lib/postgresql/data
+

@@ -1,0 +1,15 @@
+volumes:
+  pgadmin_data: { }
+
+services:
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_container
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: root
+      PGADMIN_LISTEN_PORT: 5050
+      PGADMIN_CONFIG_ENABLE_PSQL: "True"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    network_mode: host

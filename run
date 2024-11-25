@@ -1,0 +1,33 @@
+#!/bin/bash
+# EXAMPLE: run.sh myfolder
+# EXAMPLE: run.sh myfolder -down
+
+# For add this sciprt to your path, add this line to your .bashrc file
+# ln -s /path/to/run.sh /usr/local/bin/run-docker # run-docker is the name of the command
+
+# get folder name from user
+SCRIPT_DIR="/home/xd/Projects/apps"
+
+FOLDER=$1
+# check if folder exists
+if [ -z "$FOLDER" ]; then
+  echo "Folder $FOLDER does not exist", "Enter folder name (relative to $SCRIPT_DIR):"
+else
+  echo "Running $FOLDER docker-compose"
+fi
+
+RUN_DIR=$SCRIPT_DIR/$FOLDER
+
+FLAG=$2
+# If flag doesnt exists
+if [ -z "$FLAG" ]; then
+  docker compose -f $RUN_DIR/docker-compose.yml up --build
+
+elif [ "$FLAG" = "-d" ]; then
+  docker compose -f $RUN_DIR/docker-compose.yml up --build -d
+
+elif [ "$FLAG" = "-down" ]; then
+  docker compose -f $RUN_DIR/docker-compose.yml down
+elif [ "$FLAG" = "-down-v" ]; then
+  docker compose -f $RUN_DIR/docker-compose.yml down -v
+fi
